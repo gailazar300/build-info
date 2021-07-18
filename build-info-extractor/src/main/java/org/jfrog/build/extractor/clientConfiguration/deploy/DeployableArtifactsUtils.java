@@ -2,6 +2,7 @@ package org.jfrog.build.extractor.clientConfiguration.deploy;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jfrog.build.client.DeployableArtifactDetail;
 
@@ -61,6 +62,7 @@ public class DeployableArtifactsUtils {
             return new HashMap<>();
         }
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.readValue(fromFile, new TypeReference<Map<String, List<DeployableArtifactDetail>>>(){});
     }
 
